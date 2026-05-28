@@ -1,0 +1,14 @@
+---
+import DashboardLayout from "../layouts/DashboardLayout.astro";
+import TeamManager from "../components/team/TeamManager";
+---
+
+<DashboardLayout title="Equipo" currentPath="/team">
+	<div class="flex flex-col h-full">
+		<div class="px-6 pt-6 md:px-8 md:pt-8 pb-2">
+			<h1 class="text-2xl font-bold text-slate-100">Equipo</h1>
+			<p class="text-slate-400 text-sm mt-1">Gestiona los miembros del equipo y sus roles</p>
+		</div>
+		<TeamManager client:load />
+	</div>
+</DashboardLayout>

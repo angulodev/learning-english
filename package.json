@@ -14,9 +14,20 @@
 	"dependencies": {
 		"@astrojs/cloudflare": "12.6.12",
 		"@astrojs/mdx": "4.3.13",
+		"@astrojs/react": "^5.0.5",
 		"@astrojs/rss": "4.0.14",
 		"@astrojs/sitemap": "3.6.1",
+		"@astrojs/tailwind": "^6.0.2",
+		"@dnd-kit/core": "^6.3.1",
+		"@dnd-kit/sortable": "^10.0.0",
+		"@dnd-kit/utilities": "^3.2.2",
+		"@supabase/supabase-js": "^2.106.2",
 		"astro": "5.16.9",
+		"lucide-react": "^1.16.0",
+		"react": "^19.2.6",
+		"react-dom": "^19.2.6",
+		"recharts": "^3.8.1",
+		"tailwindcss": "^3.4.19",
 		"typescript": "5.9.3"
 	},
 	"devDependencies": {

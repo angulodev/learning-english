@@ -1,0 +1,57 @@
+---
+import "../../styles/global.css";
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Autenticando...</title>
+	</head>
+	<body class="min-h-screen bg-slate-900 flex items-center justify-center">
+		<div class="text-center">
+			<div class="inline-block w-10 h-10 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+			<p class="text-slate-400">Completando autenticación...</p>
+		</div>
+
+		<script>
+			import { supabase } from "../../lib/supabase";
+
+			async function handleCallback() {
+				const { data: { session }, error } = await supabase.auth.getSessionFromUrl();
+
+				if (error || !session) {
+					window.location.href = "/";
+					return;
+				}
+
+				// Set cookies for SSR middleware
+				const maxAge = 60 * 60 * 24 * 7; // 7 days
+				document.cookie = `sb-access-token=${session.access_token}; path=/; max-age=${maxAge}; SameSite=Lax`;
+				document.cookie = `sb-refresh-token=${session.refresh_token}; path=/; max-age=${maxAge}; SameSite=Lax`;
+
+				// Ensure profile exists
+				const { data: existingProfile } = await supabase
+					.from("profiles")
+					.select("id")
+					.eq("id", session.user.id)
+					.single();
+
+				if (!existingProfile) {
+					await supabase.from("profiles").insert({
+						id: session.user.id,
+						email: session.user.email,
+						full_name: session.user.user_metadata?.full_name || session.user.email,
+						avatar_url: session.user.user_metadata?.avatar_url || null,
+						role: "cliente",
+					});
+				}
+
+				window.location.href = "/dashboard";
+			}
+
+			handleCallback();
+		</script>
+	</body>
+</html>

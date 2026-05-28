@@ -1,0 +1,10 @@
+---
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+import ProjectDetail from "../../components/projects/ProjectDetail";
+
+const { id } = Astro.params;
+---
+
+<DashboardLayout title="Detalle de Proyecto" currentPath="/projects">
+	<ProjectDetail client:load projectId={id!} />
+</DashboardLayout>

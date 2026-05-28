@@ -1,50 +1,122 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import "../styles/global.css";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ProjectHub — Acceder</title>
 	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
+	<body class="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+		<!-- Background decoration -->
+		<div class="fixed inset-0 overflow-hidden pointer-events-none">
+			<div class="absolute -top-40 -right-40 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl"></div>
+			<div class="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
+		</div>
+
+		<div class="w-full max-w-md relative z-10">
+			<!-- Card -->
+			<div class="bg-slate-800/80 backdrop-blur rounded-2xl border border-slate-700 p-8 shadow-2xl shadow-black/40">
+				<!-- Logo -->
+				<div class="flex flex-col items-center mb-8">
+					<div class="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/30">
+						<svg class="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+						</svg>
+					</div>
+					<h1 class="text-2xl font-bold text-slate-100">ProjectHub</h1>
+					<p class="text-slate-400 text-sm mt-1">Gestión de proyectos para tu equipo</p>
+				</div>
+
+				<!-- Auth section -->
+				<div>
+					<p class="text-center text-slate-400 text-sm mb-6">
+						Inicia sesión con tu cuenta de Google para continuar
+					</p>
+
+					<button
+						id="google-login"
+						class="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-slate-800 font-medium py-3 px-4 rounded-xl transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg"
+					>
+						<svg class="w-5 h-5" viewBox="0 0 24 24">
+							<path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+							<path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+							<path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+							<path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+						</svg>
+						Continuar con Google
+					</button>
+
+					<div id="error-msg" class="hidden mt-4 p-3 bg-red-900/30 border border-red-700/50 rounded-lg text-red-400 text-sm text-center"></div>
+
+					<div id="loading" class="hidden mt-4 text-center">
+						<div class="inline-block w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+						<p class="text-slate-400 text-sm mt-2">Redirigiendo a Google...</p>
+					</div>
+				</div>
+
+				<!-- Features grid -->
+				<div class="mt-8 pt-6 border-t border-slate-700/60">
+					<div class="grid grid-cols-2 gap-3">
+						{[
+							{ icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10", label: "Proyectos" },
+							{ icon: "M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2", label: "Kanban" },
+							{ icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z", label: "Roles de equipo" },
+							{ icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", label: "Reportes" },
+						].map(f => (
+							<div class="flex items-center gap-2">
+								<div class="w-6 h-6 rounded-lg bg-indigo-600/20 flex items-center justify-center shrink-0">
+									<svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={f.icon} />
+									</svg>
+								</div>
+								<span class="text-xs text-slate-400">{f.label}</span>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+
+			<p class="text-center text-slate-600 text-xs mt-6">
+				&copy; {new Date().getFullYear()} ProjectHub — Todos los derechos reservados
 			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
+		</div>
+
+		<script>
+			import { supabase } from "../lib/supabase";
+
+			const btn = document.getElementById("google-login") as HTMLButtonElement;
+			const errorMsg = document.getElementById("error-msg")!;
+			const loading = document.getElementById("loading")!;
+
+			(async () => {
+				const { data: { session } } = await supabase.auth.getSession();
+				if (session) window.location.href = "/dashboard";
+			})();
+
+			btn.addEventListener("click", async () => {
+				btn.disabled = true;
+				btn.classList.add("opacity-50");
+				errorMsg.classList.add("hidden");
+				loading.classList.remove("hidden");
+
+				const { error } = await supabase.auth.signInWithOAuth({
+					provider: "google",
+					options: {
+						redirectTo: `${window.location.origin}/auth/callback`,
+					},
+				});
+
+				if (error) {
+					errorMsg.textContent = error.message;
+					errorMsg.classList.remove("hidden");
+					btn.disabled = false;
+					btn.classList.remove("opacity-50");
+					loading.classList.add("hidden");
+				}
+			});
+		</script>
 	</body>
 </html>

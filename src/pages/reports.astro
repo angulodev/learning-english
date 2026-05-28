@@ -1,0 +1,14 @@
+---
+import DashboardLayout from "../layouts/DashboardLayout.astro";
+import ReportsCharts from "../components/dashboard/ReportsCharts";
+---
+
+<DashboardLayout title="Reportes" currentPath="/reports">
+	<div class="p-6 md:p-8">
+		<div class="mb-8">
+			<h1 class="text-2xl font-bold text-slate-100">Reportes</h1>
+			<p class="text-slate-400 text-sm mt-1">Analítica detallada de proyectos, tareas y equipo</p>
+		</div>
+		<ReportsCharts client:load />
+	</div>
+</DashboardLayout>

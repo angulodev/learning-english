@@ -1,0 +1,27 @@
+---
+import "../../styles/global.css";
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Cerrando sesión...</title>
+	</head>
+	<body class="min-h-screen bg-slate-900 flex items-center justify-center">
+		<div class="text-center">
+			<div class="inline-block w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mb-3"></div>
+			<p class="text-slate-400 text-sm">Cerrando sesión...</p>
+		</div>
+		<script>
+			import { supabase } from "../../lib/supabase";
+
+			(async () => {
+				await supabase.auth.signOut();
+				document.cookie = "sb-access-token=; path=/; max-age=0";
+				document.cookie = "sb-refresh-token=; path=/; max-age=0";
+				window.location.href = "/";
+			})();
+		</script>
+	</body>
+</html>
